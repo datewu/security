@@ -23,5 +23,5 @@ jobs:
       run: |
         go get -v -t -d ./...
 
-    - name: Build
+    - name: Test
       run: go test -timeout 300s ./... -v -count=1
