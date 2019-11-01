@@ -17,7 +17,7 @@ func ExampleHash() {
 }
 
 func TestPassword(t *testing.T) {
-	cipher, err := HashPassword(plainText)
+	cipher, err := HashPassword(0, plainText)
 	if err != nil {
 		t.Error("HashPassword()", err)
 		return

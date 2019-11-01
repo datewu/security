@@ -40,8 +40,11 @@ func Hash(tag string, data []byte) []byte {
 }
 
 // HashPassword generates a bcrypt hash of the password using work factor 14.
-func HashPassword(password []byte) ([]byte, error) {
-	return bcrypt.GenerateFromPassword(password, 14)
+func HashPassword(f int, password []byte) ([]byte, error) {
+	if f == 0 {
+		f = 14
+	}
+	return bcrypt.GenerateFromPassword(password, f)
 }
 
 // CheckPasswordHash securely compares a bcrypt hashed password with its possible
