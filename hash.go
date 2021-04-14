@@ -58,5 +58,10 @@ func Md5(tag string, data []byte) []byte {
 	hash := hmac.New(md5.New, []byte(tag))
 	hash.Write(data)
 	return hash.Sum(nil)
+}
 
+// SimpleMd5 which does simple sum
+func SimpleMd5(data []byte) []byte {
+	sum := md5.Sum(data)
+	return sum[:]
 }
