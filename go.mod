@@ -1,5 +1,5 @@
 module github.com/datewu/security
 
-go 1.16
+go 1.17
 
-require golang.org/x/crypto v0.0.0-20210513164829-c07d793c2f9a
+require golang.org/x/crypto v0.0.0-20210817164053-32db794688a5
