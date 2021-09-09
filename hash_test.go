@@ -14,9 +14,9 @@ func ExampleHash() {
 	fmt.Println(ToHexString(md5))
 	fmt.Println(ToHexString(smd5))
 	// Output:
-	// 8de93ec7b111745d112d6ae96b16b3bad87bad03a734462bb7e89d2c47cb91da
-	// d9d29b0dbca7306b5f4b32e03662f0a9
-	// 3f37b87408cec44b69ec95d80fd3f5ba
+	// 85aba1262bf609a3c618cb1686db45580d231a0c4f2f547aaaeb768d5e1b1c92
+	// 563753d2208f028c66f169bd16ab0644
+	// 8c04b86aa649a1835d23587afce0aadf
 }
 
 func TestPassword(t *testing.T) {
