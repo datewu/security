@@ -1,16 +1,3 @@
-// cryptopasta - basic cryptography examples
-//
-// Written in 2015 by George Tankersley <george.tankersley@gmail.com>
-//
-// To the extent possible under law, the author(s) have dedicated all copyright
-// and related and neighboring rights to this software to the public domain
-// worldwide. This software is distributed without any warranty.
-//
-// You should have received a copy of the CC0 Public Domain Dedication along
-// with this software. If not, see // <http://creativecommons.org/publicdomain/zero/1.0/>.
-
-// Provides symmetric authenticated encryption using 256-bit AES-GCM with a random nonce.
-
 package security
 
 import (
@@ -21,9 +8,9 @@ import (
 	"io"
 )
 
-// NewEncryptionKey generates a random 256-bit key for Encrypt() and
-// Decrypt(). It panics if the source of randomness fails.
-func NewEncryptionKey() *[32]byte {
+// NewAES256Key generates a new 256-bit AES key from random
+// It panics if the source of randomness fails.
+func NewRandKey() *[32]byte {
 	key := [32]byte{}
 	_, err := io.ReadFull(rand.Reader, key[:])
 	if err != nil {
@@ -32,10 +19,10 @@ func NewEncryptionKey() *[32]byte {
 	return &key
 }
 
-// Encrypt encrypts data using 256-bit AES-GCM.  This both hides the content of
+// AES256Encrypt encrypts data using 256-bit AES-GCM.  This both hides the content of
 // the data and provides a check that it hasn't been altered. Output takes the
 // form nonce|ciphertext|tag where '|' indicates concatenation.
-func Encrypt(plaintext []byte, key *[32]byte) (ciphertext []byte, err error) {
+func AES256Encrypt(plaintext []byte, key *[32]byte) (ciphertext []byte, err error) {
 	block, err := aes.NewCipher(key[:])
 	if err != nil {
 		return nil, err
@@ -55,10 +42,10 @@ func Encrypt(plaintext []byte, key *[32]byte) (ciphertext []byte, err error) {
 	return gcm.Seal(nonce, nonce, plaintext, nil), nil
 }
 
-// Decrypt decrypts data using 256-bit AES-GCM.  This both hides the content of
+// AES256Decrypt decrypts data using 256-bit AES-GCM.  This both hides the content of
 // the data and provides a check that it hasn't been altered. Expects input
 // form nonce|ciphertext|tag where '|' indicates concatenation.
-func Decrypt(ciphertext []byte, key *[32]byte) (plaintext []byte, err error) {
+func AES256Decrypt(ciphertext []byte, key *[32]byte) (plaintext []byte, err error) {
 	block, err := aes.NewCipher(key[:])
 	if err != nil {
 		return nil, err

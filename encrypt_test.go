@@ -4,11 +4,11 @@ import (
 	"testing"
 )
 
-var plainText = []byte("hello admin")
+var plainText = []byte("Hello world, i need a hash salt. 'i'm the salt!'")
 
-func TestEncryptAndConvers(t *testing.T) {
+func TestAESEncryptAndConvers(t *testing.T) {
 	key := &[32]byte{0: 128, 11: 127, 14: 225, 31: 224}
-	c1, err := Encrypt(plainText, key)
+	c1, err := AES256Encrypt(plainText, key)
 	if err != nil {
 		t.Error("Encrypt()", err)
 	}
@@ -17,14 +17,17 @@ func TestEncryptAndConvers(t *testing.T) {
 	if hex1 != hex11 {
 		t.Error("ToString() failed")
 	}
-	c2, _ := Encrypt(plainText, key)
+	c2, _ := AES256Encrypt(plainText, key)
 	hex2 := ToHexString(c2)
 	// Even the same key will produce different ciphertext
 	if hex1 == hex2 {
 		t.Error("Encrypt() failed! With the same key, ciphertext should be diffent")
 	}
 
-	p1, err := Decrypt(c1, key)
+	p1, err := AES256Decrypt(c1, key)
+	if err != nil {
+		t.Error("Decrypt()", err)
+	}
 	if string(p1) != string(plainText) {
 		t.Error("Decrypt() failed! Expect:", string(plainText), "gotten:", string(p1))
 	}
@@ -32,7 +35,10 @@ func TestEncryptAndConvers(t *testing.T) {
 	if err != nil {
 		t.Error("ToBytes() failed")
 	}
-	p2, err := Decrypt(b, key)
+	p2, err := AES256Decrypt(b, key)
+	if err != nil {
+		t.Error("Decrypt()", err)
+	}
 	if string(p2) != string(plainText) {
 		t.Error("Decrypt() failed, expect:", string(plainText), "gotten:", string(p2))
 	}
