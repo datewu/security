@@ -5,11 +5,11 @@ import (
 	"testing"
 )
 
-func ExampleHash() {
+func ExampleHash512() {
 	tag := "hello tag"
-	sha512 := Hash(tag, plainText)
-	md5 := Md5(tag, plainText)
-	smd5 := SimpleMd5(plainText)
+	sha512 := Hash512(tag, plainText)
+	md5 := Md5WithTag(tag, plainText)
+	smd5 := Md5Sum(plainText)
 	fmt.Println(ToHexString(sha512))
 	fmt.Println(ToHexString(md5))
 	fmt.Println(ToHexString(smd5))
