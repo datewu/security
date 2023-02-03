@@ -9,7 +9,7 @@ import (
 // BcryptPwd generates a bcrypt hash of the password using work factor 14.
 func BcryptPwd(f int, password []byte) ([]byte, error) {
 	if f == 0 {
-		f = 14
+		f = 12
 	}
 	return bcrypt.GenerateFromPassword(password, f)
 }
