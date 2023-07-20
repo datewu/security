@@ -10,7 +10,7 @@ import (
 
 // NewAES256Key generates a new 256-bit AES key from random
 // It panics if the source of randomness fails.
-func NewRandKey() *[32]byte {
+func NewAES256Key() *[32]byte {
 	key := [32]byte{}
 	_, err := io.ReadFull(rand.Reader, key[:])
 	if err != nil {
